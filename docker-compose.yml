@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  backend:
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    links:
+      - database
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=commando
+      - POSTGRES_PASSWORD=example
